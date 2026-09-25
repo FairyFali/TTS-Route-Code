@@ -25,7 +25,7 @@ experiments_query/
   pipeline_planner_as_needed.py, run_tts.py, memory_bank.py, experiment_tts_preference.py   shared loaders / features
   budget/                        analytic FLOPs cost model (prefill + decode) and model specs
 swarm/, experiments/evaluator/   LLM client, graph runtime and dataset loaders (derived from GPTSwarm, MIT)
-datasets/best_route/             Best-Route-Mix queries and references
+datasets/                        Best-Route-Mix, MATH, MMLU (dev / val / test) and MT-Bench
 datasets/splits/                 split manifests (Best-Route-Mix 4,604 / 1,142) and the MATH / MMLU query list
 ```
 
@@ -37,9 +37,10 @@ pip install -r requirements.txt
 export OPENROUTER_API_KEY=...        # pool models (Llama-3.2-1B, Llama-3.1-8B, Gemma-3-27B, Qwen-2.5-72B) via OpenRouter
 export TTSFLY_JUDGE_MODEL=...        # LLM judge for Best-Route-Mix (default deepseek/deepseek-v4-flash); DEEPSEEK_API_KEY if used
 ```
-Run every script from the repository root as a module (`python -m experiments_query.<script> ...`). MATH and MMLU are
-read from `datasets/MATH/{train,test}` and `datasets/MMLU/data/{dev,test}` in the layout of the original releases
-(download separately); the profiled queries are the ids in `datasets/splits/mathmmlu_qids.json`. Every LLM call is
+Run every script from the repository root as a module (`python -m experiments_query.<script> ...`). All datasets are
+included: Best-Route-Mix (`datasets/best_route`), MATH (`datasets/MATH/{train,test}`, the original release), MMLU
+(`datasets/MMLU/data/{dev,val,test}`, the original release without its auxiliary training set) and the 80 MT-Bench
+questions (`datasets/mt_bench`); the profiled MATH / MMLU queries are the ids in `datasets/splits/mathmmlu_qids.json`. Every LLM call is
 cached under `experiments_query/results/<run>/node_cache.json`, so interrupted runs resume and re-runs are free.
 
 ## Reproducing the main experiment
