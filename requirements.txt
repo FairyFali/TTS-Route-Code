@@ -1,0 +1,22 @@
+# Core dependencies for query-level TTS-Fly (experiments_query/). Python 3.11.
+# Full deps (GPTSwarm framework) are in pyproject.toml; this is the minimal set to
+# run the router/planner, baselines, and analysis.
+
+numpy>=1.25,<2            # numpy 2.x crashes the graph/cost code
+torch>=2.1
+transformers>=4.36
+sentence-transformers>=2.2
+scikit-learn>=1.3
+pandas>=1.5,<2
+matplotlib>=3.7
+
+# LLM backends
+openai>=1.6              # OpenRouter: the 7-model pool AND the offline DeepSeek-V4 judge
+python-dotenv>=1.0       # load API keys from .env
+class-registry>=2.1      # LLMRegistry
+
+# verifier training (bestroute_rm/reward_modeling.py)
+trl>=0.8
+datasets>=2.14
+accelerate>=0.25
+tqdm
